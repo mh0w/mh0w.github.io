@@ -1,13 +1,15 @@
-title: Your awesome title
+title: hawkes.info
 author:
-  name: GitHub User
-  email: your-email@domain.com
+  name: mh0w
+  email: m@hawkes.info
 description: > # this means to ignore newlines until "show_excerpts:"
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
   Google search results) and in your feed.xml site description.
 
 show_excerpts: false # set to true to show excerpts on the homepage
+
+permalink: /:slug/
 
 # Minima date format
 # refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this
@@ -44,3 +46,4 @@ theme: minima
 plugins:
  - jekyll-feed
  - jekyll-seo-tag
+ - jekyll-redirect-from
