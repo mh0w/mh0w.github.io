@@ -1,354 +1,238 @@
-# minima
+# Jekyll URL Shortener
 
-*Minima is a one-size-fits-all Jekyll theme for writers*. It's Jekyll's default (and first) theme. It's what you get when you run `jekyll new`.
+> :scissors: :link: This is a template repository for making URL Shorteners with Jekyll and GitHub Pages. Create short URLs that can be easily shared, tweeted, or emailed to friends. Fork this repo to get started.
 
-***Disclaimer:** The information here may vary depending on the version you're using. Please refer to the `README.md` bundled
-within the theme-gem for information specific to your version or by pointing your browser to the Git tag corresponding to your
-version. e.g. https://github.com/jekyll/minima/blob/v2.5.0/README.md*
-*Running `bundle show minima` will provide you with the local path to your current theme version.*
+View the URL Shortener in action:
 
+* https://hlaueriksson.github.io/jekyll-url-shortener/
 
-[Theme preview](https://jekyll.github.io/minima/)
+Read a blog post about the URL Shortener:
 
-![minima theme preview](/screenshot.png)
+* https://conductofcode.io/post/introducing-jekyll-url-shortener/
 
-## Installation
+Table of Contents:
 
-Add this line to your Jekyll site's Gemfile:
+  - [Getting Started](#getting-started)
+    - [Domain](#domain)
+    - [Repository](#repository)
+    - [Configuration](#configuration)
+    - [GitHub Pages](#github-pages)
+    - [Links](#links)
+  - [Built With](#built-with)
+  - [Showcase](#showcase)
+  - [Running Jekyll locally](#running-jekyll-locally)
+  - [Customizing the redirect template](#customizing-the-redirect-template)
 
-```ruby
-gem "minima"
+## Getting Started
+
+Follow these steps to create your own URL Shortener:
+
+1. Get a domain name
+2. Configure the DNS for the domain
+3. Fork or clone this repo
+4. Edit the `_config.yml` file
+5. Host on GitHub Pages
+6. Create link pages
+
+### Domain
+
+Get a *(preferably short)* domain name from your favorite [registrar](https://www.icann.org/registrar-reports/accredited-list.html).
+
+You probably want to use a [apex domain](https://help.github.com/articles/about-supported-custom-domains/#apex-domains) for your URL Shortener.
+
+Go to your DNS provider and [setup the apex domain](https://help.github.com/articles/setting-up-an-apex-domain/).
+
+If you create DNS `A` records, point to the these GitHub IP addresses:
+
+```
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
 ```
 
-And then execute:
+### Repository
 
-    $ bundle
+[Fork](https://help.github.com/articles/fork-a-repo/) or [clone](https://help.github.com/articles/cloning-a-repository/) this repository.
 
+I prefer to use the *domain name* as the name for the repository when I host a site on GitHub Pages.
 
-## Contents At-A-Glance
+Take the opportunity to edit the `Description` and `Website` of the repository. Also consider to add `topics` to categorize your repository.
 
-Minima has been scaffolded by the `jekyll new-theme` command and therefore has all the necessary files and directories to have a new Jekyll site up and running with zero-configuration.
+You probably want to rewrite the content of this `README.md` file.
 
-### Layouts
+### Configuration
 
-Refers to files within the `_layouts` directory, that define the markup for your theme.
+Edit the `_config.yml` file:
 
-  - `default.html` &mdash; The base layout that lays the foundation for subsequent layouts. The derived layouts inject their contents into this file at the line that says ` {{ content }} ` and are linked to this file via [FrontMatter](https://jekyllrb.com/docs/frontmatter/) declaration `layout: default`.
-  - `home.html` &mdash; The layout for your landing-page / home-page / index-page. [[More Info.](#home-layout)]
-  - `page.html` &mdash; The layout for your documents that contain FrontMatter, but are not posts.
-  - `post.html` &mdash; The layout for your posts.
+```yml
+title: Jekyll URL Shortener
+description: This is a URL Shortener made with Jekyll and GitHub Pages. Create short URLs that can be easily shared, tweeted, or emailed to friends. ✂️🔗
+logo: /assets/img/logo.png
+show_downloads: true
+google_analytics:
+theme: jekyll-theme-minimal
 
-#### Home Layout
+permalink: /:slug/
 
-`home.html` is a flexible HTML layout for the site's landing-page / home-page / index-page. <br/>
+plugins:
+  - jekyll-redirect-from
 
-##### *Main Heading and Content-injection*
-
-From Minima v2.2 onwards, the *home* layout will inject all content from your `index.md` / `index.html` **before** the **`Posts`** heading. This will allow you to include non-posts related content to be published on the landing page under a dedicated heading. *We recommended that you title this section with a Heading2 (`##`)*.
-
-Usually the `site.title` itself would suffice as the implicit 'main-title' for a landing-page. But, if your landing-page would like a heading to be explicitly displayed, then simply define a `title` variable in the document's front matter and it will be rendered with an `<h1>` tag.
-
-##### *Post Listing*
-
-This section is optional from Minima v2.2 onwards.<br/>
-It will be automatically included only when your site contains one or more valid posts or drafts (if the site is configured to `show_drafts`).
-
-The title for this section is `Posts` by default and rendered with an `<h2>` tag. You can customize this heading by defining a `list_title` variable in the document's front matter.
-
-
-### Includes
-
-Refers to snippets of code within the `_includes` directory that can be inserted in multiple layouts (and another include-file as well) within the same theme-gem.
-
-  - `disqus_comments.html` &mdash; Code to markup disqus comment box.
-  - `footer.html` &mdash; Defines the site's footer section.
-  - `google-analytics.html` &mdash; Inserts Google Analytics module (active only in production environment).
-  - `head.html` &mdash; Code-block that defines the `<head></head>` in *default* layout.
-  - `custom-head.html` &mdash; Placeholder to allow users to add more metadata to `<head />`.
-  - `header.html` &mdash; Defines the site's main header section. By default, pages with a defined `title` attribute will have links displayed here.
-  - `social.html` &mdash; Renders social-media icons based on the `minima:social_links` data in the config file.
-  - `social-item.html` &mdash; Template to render individual list-item containing graphic link to configured social-profile.
-  - `social-links/*.svg` &mdash; SVG markup components of supported social-icons.
-
-
-### Sass
-
-Refers to `.scss` files within the `_sass` directory that define the theme's styles.
-
-  - `minima/skins/classic.scss` &mdash; The "classic" skin of the theme. *Used by default.*
-  - `minima/initialize.scss` &mdash; A component that defines the theme's *skin-agnostic* variable defaults and sass partials.
-    It imports the following components (in the following order):
-    - `minima/custom-variables.scss` &mdash; A hook that allows overriding variable defaults and mixins. (*Note: Cannot override styles*)
-    - `minima/_base.scss` &mdash; Sass partial for resets and defines base styles for various HTML elements.
-    - `minima/_layout.scss` &mdash; Sass partial that defines the visual style for various layouts.
-    - `minima/custom-styles.scss` &mdash; A hook that allows overriding styles defined above. (*Note: Cannot override variables*)
-
-Refer the [skins](#skins) section for more details.
-
-
-### Assets
-
-Refers to various asset files within the `assets` directory.
-
-  - `assets/css/style.scss` &mdash; Imports sass files from within the `_sass` directory and gets processed into the theme's
-    stylesheet: `assets/css/styles.css`.
-  - `assets/minima-social-icons.html` &mdash; Imports enabled social-media icon graphic and gets processed into a composite SVG file.
-    Refer [section on social networks](#social-networks) for its usage.
-
-
-### Plugins
-
-Minima comes with [`jekyll-seo-tag`](https://github.com/jekyll/jekyll-seo-tag) plugin preinstalled to make sure your website gets the most useful meta tags. See [usage](https://github.com/jekyll/jekyll-seo-tag#usage) to know how to set it up.
-
-
-## Usage
-
-Have the following line in your config file:
-
-```yaml
-theme: minima
+#repository: hlaueriksson/jekyll-url-shortener
 ```
 
+Change the `title` and `description` to something you like. Consider to make your own `logo` by replacing the `/assets/img/logo.png` image.
 
-### Customizing templates
+The `show_downloads` flag indicates whether to provide downloads links for the code in the repository on the site.
 
-To override the default structure and style of minima, simply create the concerned directory at the root of your site, copy the file you wish to customize to that directory, and then edit the file.
-e.g., to override the [`_includes/head.html `](_includes/head.html) file to specify a custom style path, create an `_includes` directory, copy `_includes/head.html` from minima gem folder to `<yoursite>/_includes` and start editing that file.
+Set the `google_analytics` tracking code if you are interested in the website traffic.
 
-The site's default CSS has now moved to a new place within the gem itself, [`assets/css/style.scss`](assets/css/style.scss).
+Read more about the `theme` at https://github.com/pages-themes/minimal
 
-In Minima 3.0, if you only need to customize the colors of the theme, refer to the subsequent section on skins. To have your
-*CSS overrides* in sync with upstream changes released in future versions, you can collect all your overrides for the Sass
-variables and mixins inside a sass file placed at `_sass/minima/custom-variables.scss` and all other overrides inside a sass file
-placed at path `_sass/minima/custom-styles.scss`.
+The global `permalink` for pages is set to `/:slug/`.
 
-You need not maintain entire partial(s) at the site's source just to override a few styles. However, your stylesheet's primary
-source (`assets/css/style.scss`) should contain the following:
+> Permalinks are the output path for your pages, posts, or collections. They allow you to structure the directories of your source code different from the directories in your output.
 
-  - Front matter dashes at the very beginning (can be empty).
-  - Directive to import a skin.
-  - Directive to import the base styles (automatically loads overrides when available).
+> Slugified title from the document’s filename (any character except numbers and letters is replaced as hyphen). May be overridden via the document’s `slug` front matter.
 
-Therefore, your `assets/css/style.scss` should contain the following at minimum:
+Read more about permalinks at https://jekyllrb.com/docs/permalinks/
 
-```sass
+It is the `jekyll-redirect-from` plugin that does the redirecting from the *short link* to the *target page*.
+
+> Sometimes, you may want to redirect a site page to a totally different website.
+
+Read more about the plugin at https://github.com/jekyll/jekyll-redirect-from
+
+You can find more useful `plugins` to add at https://pages.github.com/versions/
+
+When running Jekyll locally, uncomment the `repository` line and point to your own GitHub repo.
+
+### GitHub Pages
+
+Go to the repo [/settings](../../settings) and scroll down to the **GitHub Pages** section.
+
+Set the `Source` to `master branch`: https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/
+
+Point the `Custom domain` to your domain name: https://help.github.com/articles/using-a-custom-domain-with-github-pages/
+
+This will create a `CNAME` file in the repo:
+
+```txt
+example.com
+```
+
+> Custom domains are stored in a `CNAME` file in the root of your repository. You can add or update your custom domain through your repository settings. You can also edit the file directly to update your custom domain.
+
+Read more about adding a custom domain at https://help.github.com/articles/adding-or-removing-a-custom-domain-for-your-github-pages-site/
+
+Make sure the `Enforce HTTPS` checkbox is ticked: https://help.github.com/articles/securing-your-github-pages-site-with-https/
+
+> HTTPS provides a layer of encryption that prevents others from snooping on or tampering with traffic to your site. When HTTPS is enforced, your site will only be served over HTTPS.
+
+Read more about GitHub Pages at https://pages.github.com
+
+### Links
+
+Create a new short link by creating a page: https://jekyllrb.com/docs/pages/
+
+Create the file in the root of the repository.
+
+This repository has one example, [`repo.md`](repo.md):
+
+```md
 ---
+title: Jekyll URL Shortener
+redirect_to: https://github.com/hlaueriksson/jekyll-url-shortener
 ---
-
-@import
-  "minima/skins/{{ site.minima.skin | default: 'classic' }}",
-  "minima/initialize";
 ```
 
-#### Skins
+This results in:
 
-Minima 3.0 supports defining and switching between multiple color-palettes (or *skins*).
+* "Short" link: https://hlaueriksson.github.io/jekyll-url-shortener/repo/
+* Target page:  https://github.com/hlaueriksson/jekyll-url-shortener
+* *(Ironically the short link is 5 characters longer than the target page URL)*
 
-```
-.
-├── minima.scss
-└── minima
-    └── _syntax-highlighting.scss
-```
+The `title` could be used to describe the target page. Consider to take the *exact* title of the target page.
 
+The `redirect_to` is the URL to the target page. This is the only [front matter](https://jekyllrb.com/docs/front-matter/) that is mandatory to make the short link work.
 
-A skin is a Sass file placed in the directory `_sass/minima/skins` and it defines the variable defaults related to the "color"
-aspect of the theme. It also embeds the Sass rules related to syntax-highlighting since that is primarily related to color and
-has to be adjusted in harmony with the current skin.
+The file can have a `.md` (Markdown) or `.html` extension.
 
-The default color palette for Minima is defined within `_sass/minima/skins/classic.scss`. To switch to another available skin,
-simply declare it in the site's config file. For example, to activate `_sass/minima/skins/dark.scss` as the skin, the setting
-would be:
+By default, the file name will be the *slug* of the short link. This behavior is configured in `_config.yml`.
 
-```yaml
-minima:
-  skin: dark
+If you want to use a different slug, set the `permalink` variable:
+
+```md
+permalink: /something/
 ```
 
-As part of the migration to support skins, some existing Sass variables have been retired and some **have been redefined** as
-summarized in the following table:
+Take the opportunity to get a real short slug by using *emojis*:
 
-Minima 2.0      | Minima 3.0
---------------- | ----------
-`$brand-color`  | `$link-base-color`
-`$grey-*`       | `$brand-*`
-`$orange-color` | *has been removed*
-
-##### Available skins
-
-Skin setting    | Description
---------------- | -----------
-classic         | Default, light color scheme.
-dark            | Dark variant of the classic skin.
-auto            | *Adaptive skin* based on the default classic and dark skins.
-solarized       | *Adaptive skin* for [solarized](https://github.com/solarized) color scheme skins.
-solarized-light | Light variant of solarized color scheme.
-solarized-dark  | Dark variant of solarized color scheme.
-
-*:bulb: Adaptive skins switch between the "light" and "dark" variants based on the user's operating system setting or browser setting
-(via CSS Media Query [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme)).*
-
-### Customize navigation links
-
-This allows you to set which pages you want to appear in the navigation area and configure order of the links.
-
-For instance, to only link to the `about` and the `portfolio` page, add the following to your `_config.yml`:
-
-```yaml
-header_pages:
-  - about.md
-  - portfolio.md
+```md
+permalink: /😻/
 ```
 
+Find appropriate emojis to copy from https://www.emojicopy.com
 
-### Change default date format
+## Built With
 
-You can change the default date format by specifying `site.minima.date_format`
-in `_config.yml`.
+* Jekyll: https://jekyllrb.com
+* jekyll-theme-minimal: https://github.com/pages-themes/minimal
+* jekyll-redirect-from: https://github.com/jekyll/jekyll-redirect-from
+* GitHub Pages: https://pages.github.com
 
-```
-# Minima date format
-# refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
-minima:
-  date_format: "%b %-d, %Y"
-```
+## Showcase
 
+| Repo | Site |
+| :--- | :--- |
+| https://github.com/hlaueriksson/hlaueriksson.me | https://hlaueriksson.me
 
-### Extending the `<head />`
+## Running Jekyll locally
 
-You can *add* custom metadata to the `<head />` of your layouts by creating a file `_includes/custom-head.html` in your source directory. For example, to add favicons:
+See https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/
 
-1. Head over to [https://realfavicongenerator.net/](https://realfavicongenerator.net/) to add your own favicons.
-2. [Customize](#customization) default `_includes/custom-head.html` in your source directory and insert the given code snippet.
+Edit `_config.yml` and uncomment the `repository` line and point to your own GitHub repo.
 
+Run:
 
-### Enabling comments (via Disqus)
-
-Optionally, if you have a Disqus account, you can tell Jekyll to use it to show a comments section below each post.
-
-:warning: `url`, e.g. `https://example.com`, must be set in you config file for Disqus to work.
-
-To enable it, after setting the url field, you also need to add the following lines to your Jekyll site:
-
-```yaml
-  disqus:
-    shortname: my_disqus_shortname
+```cmd
+bundle exec jekyll serve
 ```
 
-You can find out more about Disqus' shortnames [here](https://help.disqus.com/installation/whats-a-shortname).
+Browse:
 
-Comments are enabled by default and will only appear in production, i.e., `JEKYLL_ENV=production`
+http://localhost:4000
 
-If you don't want to display comments for a particular post you can disable them by adding `comments: false` to that post's YAML Front Matter.
+## Customizing the redirect template
 
-### Author Metadata
+See https://github.com/jekyll/jekyll-redirect-from#customizing-the-redirect-template
 
-From `Minima-3.0` onwards, `site.author` is expected to be a mapping of attributes instead of a simple scalar value:
+The template in this repository, [`_layouts/redirect.html`](_layouts/redirect.html):
 
-```yaml
-author:
-  name: John Smith
-  email: "john.smith@foobar.com"
+```html
+<!DOCTYPE html>
+<html lang="en-US">
+  {% if site.google_analytics %}
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ site.google_analytics }}');
+  </script>
+  {% endif %}
+  <meta charset="utf-8">
+  <title>Redirecting&hellip;</title>
+  <link rel="canonical" href="{{ page.redirect.to }}">
+  <script>location="{{ page.redirect.to }}"</script>
+  <meta http-equiv="refresh" content="0; url={{ page.redirect.to }}">
+  <meta name="robots" content="noindex">
+  <h1>Redirecting&hellip;</h1>
+  <a href="{{ page.redirect.to }}">Click here if you are not redirected.</a>
+</html>
 ```
 
-To migrate existing metadata, update your config file and any reference to the object in your layouts and includes as summarized below:
+The Google Analytics script is added at the top of the HTML.
 
-Minima 2.x    | Minima 3.0
-------------- | -------------------
-`site.author` | `site.author.name`
-`site.email`  | `site.author.email`
-
-
-### Social networks
-
-You can add links to the accounts you have on other sites, with respective icon as an SVG graphic, via the config file.
-From `Minima-3.0` onwards, the social media data is sourced from config key `minima.social_links`. It is a list of key-value pairs, each entry
-corresponding to a link rendered in the footer. For example, to render links to Jekyll GitHub repository and twitter account, one should have:
-
-```yaml
-minima:
-  social_links:
-    - { platform: github,  user_url: "https://github.com/jekyll/jekyll" }
-    - { platform: twitter, user_url: "https://twitter.com/jekyllrb" }
-```
-
-Apart from the necessary keys illustrated above, `title` may also be defined to render a custom link-title. By default, the title is the same
-as `platform`. The `platform` key corresponds to the SVG id of the sprite in the composite file at URL `/assets/minima-social-icons.svg`.
-
-The theme ships with an icon for `rss` and icons of select social-media platforms:
-
-- `devto`
-- `dribbble`
-- `facebook`
-- `flickr`
-- `github`
-- `google_scholar`
-- `instagram`
-- `keybase`
-- `linkedin`
-- `microdotblog`
-- `pinterest`
-- `stackoverflow`
-- `telegram`
-- `twitter`
-- `youtube`
-
-To render a link to a platform not listed above, one should first create a file at path `_includes/social-icons/<PLATFORM>.svg` comprised of
-graphic markup **without the top-level `<svg></svg>`**. The icon is expected to be centered within a viewbox of `"0 0 16 16"`. Then, make an
-entry under key `minima.social_links`.
-
-For example, to render a link to an account of user `john.doe` at platform `deviantart.com`, the steps to follow would be:
-  - Get DeviantArt logo in SVG format.
-  - Using a text-editor, open the downloaded file to inspect if the `viewBox` attribute is defined on the `<svg>` element and is set
-    as `"0 0 16 16" (or similar "square" dimension)`.
-  - If the `viewBox` attribute is non-square or undefined, the graphic *may optionally need* to be edited in a vector graphic editor such as
-    *Inkscape* or *Adobe Illustrator* for properly aligned render on page.
-  - Edit the SVG file in text-editor to delete everything **except** what is contained between `<svg></svg>` and save it into the Jekyll
-    project at path `_includes/social-icons/deviantart.svg`.
-  - Finally, edit the Jekyll config file to enable loading of new icon graphic with:
-    ```yaml
-    minima:
-      social_links:
-        - platform: deviantart  # same as SVG filename.
-          user_url: "https://www.deviantart.com/john.doe"  # URL of profile page.
-          title:  My profile at DeviantArt.com  # Optional. Text displayed on hovering over link.
-    ```
-
-**Notes:**
-- The list of social-links is declarative. List-items are rendered in the order declared in the downstream configuration file and not merged
-  with entries from upstream config file(s) such as theme-config-file or prior local config files.
-- The `user_url` is rendered as given without handling any special characters within.
-
-
-### Enabling Google Analytics
-
-To enable Google Analytics, add the following lines to your Jekyll site:
-
-```yaml
-  google_analytics: UA-NNNNNNNN-N
-```
-
-Google Analytics will only appear in production, i.e., `JEKYLL_ENV=production`
-
-### Enabling Excerpts on the Home Page
-
-To display post-excerpts on the Home Page, simply add the following to your `_config.yml`:
-
-```yaml
-show_excerpts: true
-```
-
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/jekyll/minima. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
-## Development
-
-To set up your environment to develop this theme, run `script/bootstrap`.
-
-To test your theme, run `script/server` (or `bundle exec jekyll serve`) and open your browser at `http://localhost:4000`. This starts a Jekyll server using your theme and the contents. As you make modifications, your site will regenerate and you should see the changes in the browser after a refresh.
-
-## License
-
-The theme is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+If the `google_analytics` tracking code is specified in `_config.yml`, then the script is rendered in the redirect template.
