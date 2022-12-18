@@ -1,7 +1,7 @@
 title: hawkes.info
 author:
-  name: mh0w
-  email: m@hawkes.info
+  name:
+  email:
 description: > # this means to ignore newlines until "show_excerpts:"
   There is nothing here (yet). Website just used as url shortener.
 
