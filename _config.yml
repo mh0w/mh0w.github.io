@@ -1,13 +1,13 @@
 title: hawkes.info
 description: hawkes.info
-logo: /assets/img/logo.png
+# logo: /assets/img/logo.png
 show_downloads: false
 google_analytics:
 theme: jekyll-theme-minimal
 
-permalink: /:slug/
+permalink: /:slug
 
 plugins:
   - jekyll-redirect-from
 
-#repository: hlaueriksson/jekyll-url-shortener
+#repository: mh0w/mh0w.github.io
